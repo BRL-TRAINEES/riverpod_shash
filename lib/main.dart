@@ -1,45 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_1/api.dart';
+
 void main() {
-  runApp(const ProviderScope(
-  
-  
-  child:MyApp()),);
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-   
-    
-      home: HomePage(),
+      home: CurrencyConvert(),
     );
   }
 }
-final currentDate=Provider<DateTime>((ref)=>DateTime.now());
+final currencyProvider = FutureProvider<double>((ref) async {
+  final apiService = ApiService();
+  return await apiService.fetch();
+});
 
-class HomePage extends ConsumerWidget{
-  HomePage ({Key? key}):super(key:key);
+class CurrencyConvert extends ConsumerWidget {
+  const CurrencyConvert({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref){
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currencyAsyncValue = ref.watch(currencyProvider);
 
-    final date=ref.watch(currentDate);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white , 
-  
-        title:Text('HomePage',style: TextStyle(color: Colors.black),),),
-
-        body:Center(
-        child: Text(date.toString()),),
-      );
- 
+        title: const Text('USD to INR Converter'),
+      ),
+      body: Center(
+        child: currencyAsyncValue.when(
+          data: (rate) => Text(
+            '1 USD = $rate INR',
+            style: const TextStyle(fontSize: 24),
+          ),
+          loading: () => const CircularProgressIndicator(),
+          error: (err, stack) => Text('Error: $err'),
+        ),
+      ),
+    );
   }
-  }
+}
 
 
