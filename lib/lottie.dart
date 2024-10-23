@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_1/home.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart'; // Import page_transition
+import 'package:page_transition/page_transition.dart';
 
 class Lottiee extends StatelessWidget {
   const Lottiee({super.key});

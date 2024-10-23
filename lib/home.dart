@@ -17,7 +17,7 @@ class CurrencyConvert extends ConsumerWidget {
     final currencyValue=ref.watch(currencyProvider);
 
     return Scaffold(
-              backgroundColor: Color.fromARGB(255, 80, 79, 79), // Background color
+              backgroundColor: Color.fromARGB(255, 80, 79, 79),
 
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 46, 46, 46),
@@ -38,9 +38,9 @@ class CurrencyConvert extends ConsumerWidget {
                  
                 ),
                 filled: true,
-                fillColor: Color(0xFF1E1E1E), // Input field background color
+                fillColor: Color.fromRGBO(30, 30, 30, 1),
               ),
-              style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)), // Text color in input field
+              style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)), 
             )
             ]),
           ));}}
