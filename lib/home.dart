@@ -2,26 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_1/api.dart';
 
-
-
-
- final apiService = ApiService();
+final apiService = ApiService();
 final currencyProvider = FutureProvider<double>((ref) async {
- return await apiService.fetch();
+  return await apiService.fetch();
 });
 
+final TextEditingController uscon = TextEditingController();
 
-
-class CurrencyConvert extends StatelessWidget {
-  const CurrencyConvert({super.key});
+class CurrencyConvert extends ConsumerWidget {
+  CurrencyConvert({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currencyValue=ref.watch(currencyProvider);
+
     return Scaffold(
-      appBar: AppBar( title:Text('HomePage'),backgroundColor: Colors.grey,),
+              backgroundColor: Color.fromARGB(255, 80, 79, 79), // Background color
 
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 46, 46, 46),
+        title: const Text('USD to INR Converter',style: TextStyle(color: Colors.grey),),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
 
-    );
-  }
-}
+            const SizedBox(height: 215),
+            TextField(
+              controller:uscon,
+              decoration:InputDecoration(
+              labelText: 'Enter amount in USD',   labelStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                   border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                 
+                ),
+                filled: true,
+                fillColor: Color(0xFF1E1E1E), // Input field background color
+              ),
+              style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)), // Text color in input field
+            )
+            ]),
+          ));}}
